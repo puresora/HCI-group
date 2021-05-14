@@ -1,23 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
+//懒加载文件
+const DefaultPage = ()=> import('views/DefaultPage')
+const Event = ()=> import('views/jpy/event/Eventmain')
+const Flow = ()=> import('views/jpy/flow/Flowmain')
+const Enterprise = ()=> import('views/jpy/enterprise/enterprisemain')
+const City = ()=> import('views/jpy/city/citymain')
+
+//1.安装路由插件
 Vue.use(VueRouter)
 
+//2.创建路由对象
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '',
+    redirect: '/default'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/default',
+    component: DefaultPage
+  },
+  {
+    path: '/event',
+    component: Event
+  },
+  {
+    path: '/flow',
+    component: Flow
+  },
+  {
+    path: '/enterprise',
+    component: Enterprise
+  },
+  {
+    path: '/city',
+    component: City
+  },
+
 ]
 
 const router = new VueRouter({
@@ -26,4 +46,5 @@ const router = new VueRouter({
   routes
 })
 
+//3.导出路由对象
 export default router
